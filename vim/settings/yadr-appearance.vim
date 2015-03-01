@@ -1,8 +1,6 @@
 " Make it beautiful - colors and fonts
 
 " http://ethanschoonover.com/solarized/vim-colors-solarized
-colorscheme solarized
-set background=dark
 
 if has("gui_running")
   "tell the term has 256 colors
@@ -26,3 +24,6 @@ else
   let g:CSApprox_loaded = 1
 endif
 
+let g:solarized_termcolors=256
+colorscheme solarized
+set background=dark
