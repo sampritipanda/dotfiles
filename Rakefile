@@ -86,13 +86,13 @@ task :plug_migration do
   FileUtils.mv(File.join('vim','bundle'), File.join('vim', 'bundle.old'))
   # Rename local vundles file
   vundle_path = File.join('vim','.vundles.local')
-  if File.exists?(vundle_path)
+  if File.exist?(vundle_path)
     FileUtils.mv(vundle_path, File.join('vim', '.local.bundles'))
     puts "Replace all Bundle started lines with Plug"
     run %q{ ruby -pi.bak -e "gsub(/^Bundle/, 'Plug')" .local.bundles }
   end
   vundle_path_bak = File.join('vim','.vundles.local.bak')
-  if File.exists?(vundle_path_bak)
+  if File.exist?(vundle_path_bak)
     FileUtils.mv(vundle_path_bak, File.join('vim', '.local.bundles.bak'))
   end
 end
@@ -107,7 +107,7 @@ task :install_plugins do
   puts ""
 
   plug_path = File.join('vim','autoload', 'plug.vim')
-  unless File.exists?(plug_path)
+  unless File.exist?(plug_path)
     run %{
       cd $HOME/.yadr
       curl -fLo #{plug_path} --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -203,7 +203,7 @@ def install_term_theme
   run %{ /usr/libexec/PlistBuddy -c "Merge 'iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'" ~/Library/Preferences/com.googlecode.iterm2.plist }
 
   # If iTerm2 is not installed or has never run, we can't autoinstall the profile since the plist is not there
-  if !File.exists?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
+  if !File.exist?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
     puts "======================================================"
     puts "To make sure your profile is using the solarized theme"
     puts "Please check your settings under:"
@@ -285,7 +285,7 @@ def install_prezto
     puts "Zsh is already configured as your shell of choice. Restart your session to load the new settings"
   else
     puts "Setting zsh as your default shell"
-    if File.exists?("/usr/local/bin/zsh")
+    if File.exist?("/usr/local/bin/zsh")
       if File.readlines("/private/etc/shells").grep("/usr/local/bin/zsh").empty?
         puts "Adding zsh to standard shell list"
         run %{ echo "/usr/local/bin/zsh" | sudo tee -a /private/etc/shells }
@@ -316,7 +316,7 @@ def install_files(files, method = :symlink)
     puts "Source: #{source}"
     puts "Target: #{target}"
 
-    if File.exists?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
+    if File.exist?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
       puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
       run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
     end
@@ -333,7 +333,7 @@ def install_files(files, method = :symlink)
 end
 
 def needs_migration_to_plug?
-  File.exists?(File.join('vim', 'bundle', 'vundle')) || File.exists?(File.join('vim', 'bundle', 'Vundle.vim'))
+  File.exist?(File.join('vim', 'bundle', 'vundle')) || File.exist?(File.join('vim', 'bundle', 'Vundle.vim'))
 end
 
 

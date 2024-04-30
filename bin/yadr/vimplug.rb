@@ -32,12 +32,12 @@ module VimPlug
 
   private
   def self.contains_bundle?(bundle_name)
-    FileUtils.touch(@bundles_path) unless File.exists? @bundles_path
+    FileUtils.touch(@bundles_path) unless File.exist? @bundles_path
     File.read(@bundles_path).include?(bundle_name)
   end
 
   def self.bundles_from_file
-    FileUtils.touch(@bundles_path) unless File.exists? @bundles_path
+    FileUtils.touch(@bundles_path) unless File.exist? @bundles_path
     File.read(@bundles_path).split("\n")
   end
 
